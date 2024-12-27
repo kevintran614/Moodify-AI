@@ -21,7 +21,7 @@ public class GenerateSongController {
         return "Spring Boot Health Check";
     }
 
-    @GetMapping("/generate-emotion-from-text")
+    @PostMapping("/generate-emotion-from-text")
     public ResponseEntity<String> generateEmotionFromText(@RequestBody String text) {
         return generateEmotionService.generateEmotion(text);
     }
