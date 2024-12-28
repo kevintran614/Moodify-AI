@@ -2,10 +2,7 @@ package com.example.Moodify_AI.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -43,17 +40,17 @@ public class AuthService {
         String state = generateRandomStrike(16);
         String scope = "user-top-read";
 
-        String spotifyAuthUrl = UriComponentsBuilder.fromHttpUrl("https://accounts.spotify.com/authorize")
-                .queryParam("response_type", "code")
-                .queryParam("client_id", clientId)
-                .queryParam("scope", scope)
-                .queryParam("redirect_uri", redirectUrl)
-                .queryParam("state", state)
-                .build()
-                .toUriString();
+        String authUrl = "https://accounts.spotify.com/authorize?" +
+                "response_type=code" +
+                "&client_id=" + clientId +
+                "&scope=" + scope +
+                "&redirect_uri=" + redirectUrl +
+                "&state=" + state;
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", authUrl);
 
-        return ResponseEntity.ok("emotion");
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
     // 2) Request an Access Token
