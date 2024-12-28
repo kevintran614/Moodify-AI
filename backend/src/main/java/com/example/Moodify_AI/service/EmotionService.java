@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class GenerateEmotionService {
+public class EmotionService {
+
+    private final RestTemplate restTemplate;
 
     @Autowired
-    private RestTemplate restTemplate;
+    public EmotionService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public ResponseEntity<String> generateEmotion(String text) {
         String getEmotionUrl = "http://127.0.0.1:5000/generate-emotion-from-text";

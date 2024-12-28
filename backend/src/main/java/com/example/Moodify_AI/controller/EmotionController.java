@@ -1,18 +1,18 @@
 package com.example.Moodify_AI.controller;
 
-import com.example.Moodify_AI.service.GenerateEmotionService;
+import com.example.Moodify_AI.service.EmotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api")
-public class GenerateSongController {
+@RequestMapping(path = "/emotion")
+public class EmotionController {
 
-    private final GenerateEmotionService generateEmotionService;
+    private final EmotionService generateEmotionService;
 
     @Autowired
-    public GenerateSongController(GenerateEmotionService generateEmotionService) {
+    public EmotionController(EmotionService generateEmotionService) {
         this.generateEmotionService = generateEmotionService;
     }
 
