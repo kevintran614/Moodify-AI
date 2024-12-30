@@ -31,6 +31,8 @@ public class AuthService {
 
     private AuthorizationCodeCredentials authorizationCodeCredentials;
 
+    private String accessToken;
+
     public String generateRandomString(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         SecureRandom random = new SecureRandom();
@@ -58,7 +60,7 @@ public class AuthService {
                 .show_dialog(true)
                 .build();
 
-        final URI uri = this.authorizationCodeUriRequest.execute();
+        URI uri = this.authorizationCodeUriRequest.execute();
 
         return uri.toString();
     }
@@ -77,8 +79,8 @@ public class AuthService {
             System.out.println("Error: " + e.getMessage());
         }
 
-        final String accessToken = this.authorizationCodeCredentials.getAccessToken();
+        this.accessToken = this.authorizationCodeCredentials.getAccessToken();
 
-        return accessToken;
+        return this.accessToken;
     }
 }
