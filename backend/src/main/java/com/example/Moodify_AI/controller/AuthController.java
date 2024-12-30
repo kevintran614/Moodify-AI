@@ -17,12 +17,7 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> login() {
-        return authService.requestUserAuth();
-    }
-
-    @GetMapping("/callback")
-    public ResponseEntity<String> callback() {
-        return authService.handleCallback();
+    public String login() {
+        return authService.requestAuthCodeUri();
     }
 }
