@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.security.SecureRandom;
 
@@ -36,7 +35,7 @@ public class AuthService {
     }
 
     public ResponseEntity<String> requestUserAuth() {
-        String redirectUrl = "http://localhost:8080/callback";
+        String redirectUrl = "http://localhost:8080/auth/callback";
         String state = generateRandomStrike(16);
         String scope = "user-top-read";
 
@@ -45,7 +44,8 @@ public class AuthService {
                 "&client_id=" + clientId +
                 "&scope=" + scope +
                 "&redirect_uri=" + redirectUrl +
-                "&state=" + state;
+                "&state=" + state +
+                "&show_dialog=" + true;
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", authUrl);
@@ -53,5 +53,14 @@ public class AuthService {
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
-    // 2) Request an Access Token
+    // 2) Handle callback
+    public ResponseEntity<String> handleCallback() {
+        // 1. get response from callback and get code
+        // 2. send a post request to get token url
+        // 3. get token info (access token, refresh token, expires in)
+
+        return restTemplate.postForEntity("http://localhost:8080/auth/callback", null, String.class);
+    }
+
+    // 3) Request an Access Token
 }

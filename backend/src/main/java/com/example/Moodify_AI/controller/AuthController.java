@@ -20,4 +20,9 @@ public class AuthController {
     public ResponseEntity<String> login() {
         return authService.requestUserAuth();
     }
+
+    @GetMapping("/callback")
+    public ResponseEntity<String> callback() {
+        return authService.handleCallback();
+    }
 }
