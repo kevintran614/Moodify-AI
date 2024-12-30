@@ -20,4 +20,9 @@ public class AuthController {
     public String login() {
         return authService.requestAuthCodeUri();
     }
+
+    @GetMapping("/access-token")
+    public String accessToken(@RequestParam("code") String code) {
+        return authService.requestAccessToken(code);
+    }
 }
