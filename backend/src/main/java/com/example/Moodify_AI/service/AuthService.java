@@ -31,8 +31,6 @@ public class AuthService {
 
     private AuthorizationCodeCredentials authorizationCodeCredentials;
 
-    private String accessToken;
-
     public String generateRandomString(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         SecureRandom random = new SecureRandom();
@@ -74,13 +72,16 @@ public class AuthService {
 
             this.spotifyApi.setAccessToken(this.authorizationCodeCredentials.getAccessToken());
             this.spotifyApi.setRefreshToken(this.authorizationCodeCredentials.getRefreshToken());
+            System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
         }
         catch (IOException | ParseException | SpotifyWebApiException e) {
             System.out.println("Error: " + e.getMessage());
         }
 
-        this.accessToken = this.authorizationCodeCredentials.getAccessToken();
+        return this.authorizationCodeCredentials.getAccessToken();
+    }
 
-        return this.accessToken;
+    public SpotifyApi getSpotifyApi() {
+        return this.spotifyApi;
     }
 }
